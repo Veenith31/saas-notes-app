@@ -10,7 +10,7 @@ export async function POST(
   { params }: { params: { slug: string } }
 ) {
   const session = await getServerSession(authOptions);
-  const tenantSlug = params.slug;
+  const tenantSlug = context.params.slug;
 
   // 1. Check for authentication and admin role
   if (session?.user?.role !== "ADMIN") {
