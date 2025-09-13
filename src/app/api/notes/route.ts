@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth/next";
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
-import { authOptions } from "../auth/[...nextauth]/route"; // Adjust path if needed
+import { authOptions } from "../auth/[...nextauth]/route"; 
 
 const prisma = new PrismaClient();
 
@@ -37,7 +37,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
   }
 
-  // --- Subscription Limit Check ---
   const tenant = await prisma.tenant.findUnique({
     where: { id: session.user.tenantId },
     include: { _count: { select: { notes: true } } },
@@ -46,10 +45,10 @@ export async function POST(request: Request) {
   if (tenant?.subscription === "FREE" && tenant._count.notes >= 3) {
     return NextResponse.json(
       { error: "Note limit reached. Please upgrade to Pro." },
-      { status: 403 } // 403 Forbidden
+      { status: 403 } 
     );
   }
-  // --- End Subscription Check ---
+
 
   try {
     const { title, content } = await request.json();
