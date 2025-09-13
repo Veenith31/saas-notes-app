@@ -31,7 +31,7 @@ export async function POST(
     });
 
     return NextResponse.json({ message: "Subscription downgraded to FREE" });
-  } catch (error) {
+  } catch{
     return NextResponse.json(
       { error: "Failed to downgrade subscription" },
       { status: 500 }
