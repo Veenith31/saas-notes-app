@@ -65,7 +65,6 @@ export function CreateNoteForm({ onNoteCreated }: CreateNoteFormProps) {
       <h3 className="text-lg font-semibold">Create a New Note</h3>
       {error && <p className="text-sm text-red-500">{error}</p>}
       
-      {/* --- START: UPDATED LOGIC --- */}
       {showUpgrade && (
         <div className="p-4 my-4 text-center bg-blue-900 border border-blue-700 rounded-md">
             <p className="mb-4">You've reached the 3-note limit for the Free plan.</p>
@@ -82,7 +81,6 @@ export function CreateNoteForm({ onNoteCreated }: CreateNoteFormProps) {
             )}
         </div>
       )}
-      {/* --- END: UPDATED LOGIC --- */}
 
       <div>
         <label htmlFor="title" className="block text-sm font-medium">Title</label>
