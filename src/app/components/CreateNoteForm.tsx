@@ -67,8 +67,8 @@ export function CreateNoteForm({ onNoteCreated }: CreateNoteFormProps) {
       
       {showUpgrade && (
         <div className="p-4 my-4 text-center bg-blue-900 border border-blue-700 rounded-md">
-            <p className="mb-4">You've reached the 3-note limit for the Free plan.</p>
-            {session?.user?.role === 'ADMIN' ? (
+          <p className="mb-4">You&apos;ve reached the 3-note limit for the Free plan.</p>
+          {session?.user?.role === 'ADMIN' ? (
                 <button
                     type="button"
                     onClick={handleUpgrade}
