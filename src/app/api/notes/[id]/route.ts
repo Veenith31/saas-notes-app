@@ -1,5 +1,3 @@
-// src/app/api/notes/[id]/route.ts
-
 import { getServerSession } from "next-auth/next";
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
@@ -104,7 +102,6 @@ export async function DELETE(
   }
 
   try {
-    // Use deleteMany to ensure the note belongs to the correct tenant
     const deleteResult = await prisma.note.deleteMany({
       where: {
         id: noteId,
