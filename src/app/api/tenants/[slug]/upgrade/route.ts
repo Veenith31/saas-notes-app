@@ -1,43 +1,18 @@
+// Replace ENTIRE file content with this
 import { getServerSession } from "next-auth/next";
-import { NextResponse,NextRequest} from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import { authOptions } from "../../../auth/[...nextauth]/route";
 
 const prisma = new PrismaClient();
 
-export async function POST(
-  request: NextRequest,
-context :{ params: { slug: string } }
-) {
+export async function POST(request: NextRequest, context: { params: { slug: string } }) {
   const session = await getServerSession(authOptions);
-  const tenantSlug =context.params.slug;
-
-  // 1. Check for authentication and admin role
-  if (session?.user?.role !== "ADMIN") {
-    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-  }
-
-  // 2. Security check: Ensure the admin is upgrading their own tenant
-  if (session.user.tenantSlug !== tenantSlug) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
+  const tenantSlug = context.params.slug;
+  if (session?.user?.role !== "ADMIN") return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  if (session.user.tenantSlug !== tenantSlug) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   try {
-    // 3. Update the tenant's plan to PRO
-    await prisma.tenant.update({
-      where: {
-        id: session.user.tenantId,
-      },
-      data: {
-        subscription: "PRO",
-      },
-    });
-
+    await prisma.tenant.update({ where: { id: session.user.tenantId }, data: { subscription: "PRO" } });
     return NextResponse.json({ message: "Subscription upgraded to PRO" });
-  } catch  {
-    return NextResponse.json(
-      { error: "Failed to upgrade subscription" },
-      { status: 500 }
-    );
-  }
+  } catch { return NextResponse.json({ error: "Failed to upgrade subscription" }, { status: 500 }); }
 }
