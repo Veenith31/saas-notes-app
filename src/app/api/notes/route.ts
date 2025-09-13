@@ -70,7 +70,7 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json(newNote, { status: 201 });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: "Failed to create note" },
       { status: 500 }
