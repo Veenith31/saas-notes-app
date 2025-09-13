@@ -1,5 +1,3 @@
-// src/app/api/auth/[...nextauth]/route.ts
-
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { PrismaClient } from '@prisma/client';
@@ -7,7 +5,6 @@ import bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();
 
-// ✅ Make sure this object is defined and EXPORTED
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
