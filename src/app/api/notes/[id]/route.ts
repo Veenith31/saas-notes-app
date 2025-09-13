@@ -33,7 +33,7 @@ export async function GET(
     }
 
     return NextResponse.json(note);
-  } catch (error) {
+  } catch{
     return NextResponse.json(
       { error: "Failed to fetch note" },
       { status: 500 }
@@ -82,7 +82,7 @@ export async function PUT(
     }
 
     return NextResponse.json({ message: "Note updated successfully" });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: "Failed to update note" },
       { status: 500 }
@@ -117,7 +117,7 @@ export async function DELETE(
     }
 
     return NextResponse.json({ message: "Note deleted successfully" });
-  } catch (error) {
+  } catch  {
     return NextResponse.json(
       { error: "Failed to delete note" },
       { status: 500 }
