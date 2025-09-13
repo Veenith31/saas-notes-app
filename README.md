@@ -1,8 +1,4 @@
-Of course. A great README is essential for any project. Based on all the features we've implemented, here is a comprehensive and professionally formatted README.md file for your project, Notely.
-
-You can replace the entire content of your existing README.md file with the markdown code below.
-
-Notely - Multi-Tenant SaaS Notes Application
+**Notely - Multi-Tenant SaaS Notes Application**
 Notely is a secure, multi-tenant SaaS application designed to allow different companies (tenants) to manage their notes and users in a completely isolated environment. The application features role-based access control, subscription plans with feature gating, and a complete RESTful API for note management.
 
 [Live Demo](https://saas-notes-app.vercel.app/login) | GitHub Repository : [GitHub Repository](https://github.com/Veenith31/saas-notes-app)
