@@ -34,7 +34,7 @@ export async function POST(
     });
 
     return NextResponse.json({ message: "Subscription upgraded to PRO" });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: "Failed to upgrade subscription" },
       { status: 500 }
