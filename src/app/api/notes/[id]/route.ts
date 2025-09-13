@@ -3,7 +3,7 @@
 import { getServerSession } from "next-auth/next";
 import { NextResponse, NextRequest } from "next-server";
 import { PrismaClient } from "@prisma/client";
-import { authOptions } from "../../auth/[...nextauth]/route";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 const prisma = new PrismaClient();
 
