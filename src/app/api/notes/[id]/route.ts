@@ -7,34 +7,6 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 const prisma = new PrismaClient();
 
-
-export async function GET(request: NextRequest, context: { params: { id: string } }) {
-  const session = await getServerSession(authOptions);
-  const noteId = context.params.id;
-
-  if (!session?.user?.tenantId) {
-    return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
-  }
-
-  try {
-    const note = await prisma.note.findFirst({
-      where: {
-        id: noteId,
-        tenantId: session.user.tenantId,
-      },
-    });
-
-    if (!note) {
-      return NextResponse.json({ error: "Note not found" }, { status: 404 });
-    }
-
-    return NextResponse.json(note);
-  } catch {
-    return NextResponse.json({ error: "Failed to fetch note" }, { status: 500 });
-  }
-}
-
-
 export async function PUT(request: NextRequest, context: { params: { id: string } }) {
   const session = await getServerSession(authOptions);
   const noteId = context.params.id;
