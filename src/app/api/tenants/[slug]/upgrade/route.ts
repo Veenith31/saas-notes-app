@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 // src/app/api/tenants/[slug]/upgrade/route.ts
 /*
-=======
->>>>>>> c5a654b9740ecef64faad08855a99b3c5bc1a458
 import { getServerSession } from "next-auth/next";
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
@@ -46,7 +43,6 @@ export async function POST(
     );
   }
 }
-<<<<<<< HEAD
   */
 
 import { getServerSession } from "next-auth/next";
@@ -85,12 +81,10 @@ context :{ params: { slug: string } }
     });
 
     return NextResponse.json({ message: "Subscription upgraded to PRO" });
-  } catch (error) {
+  } catch  {
     return NextResponse.json(
       { error: "Failed to upgrade subscription" },
       { status: 500 }
     );
   }
 }
-=======
->>>>>>> c5a654b9740ecef64faad08855a99b3c5bc1a458

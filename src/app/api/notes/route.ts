@@ -22,11 +22,7 @@ export async function GET() {
       },
     });
     return NextResponse.json(notes);
-<<<<<<< HEAD
   } catch {
-=======
-  } catch{
->>>>>>> c5a654b9740ecef64faad08855a99b3c5bc1a458
     return NextResponse.json(
       { error: "Failed to fetch notes" },
       { status: 500 }
