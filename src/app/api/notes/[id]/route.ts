@@ -1,14 +1,13 @@
-// Replace ENTIRE file content with this
 import { getServerSession } from "next-auth/next";
 import { NextResponse, NextRequest } from "next/server";
 import { PrismaClient } from "@prisma/client";
-import { authOptions } from "../../auth/[...nextauth]/route";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 const prisma = new PrismaClient();
 
-export async function GET(request: NextRequest, context: { params: { id: string } }) {
+export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   const session = await getServerSession(authOptions);
-  const noteId = context.params.id;
+  const noteId = params.id;
   if (!session?.user?.tenantId) return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
   try {
     const note = await prisma.note.findFirst({ where: { id: noteId, tenantId: session.user.tenantId } });
@@ -17,9 +16,9 @@ export async function GET(request: NextRequest, context: { params: { id: string 
   } catch { return NextResponse.json({ error: "Failed to fetch note" }, { status: 500 }); }
 }
 
-export async function PUT(request: NextRequest, context: { params: { id: string } }) {
+export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
   const session = await getServerSession(authOptions);
-  const noteId = context.params.id;
+  const noteId = params.id;
   if (!session?.user?.tenantId) return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
   try {
     const { title, content } = await request.json();
@@ -29,9 +28,9 @@ export async function PUT(request: NextRequest, context: { params: { id: string 
   } catch { return NextResponse.json({ error: "Failed to update note" }, { status: 500 }); }
 }
 
-export async function DELETE(request: NextRequest, context: { params: { id: string } }) {
+export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
   const session = await getServerSession(authOptions);
-  const noteId = context.params.id;
+  const noteId = params.id;
   if (!session?.user?.tenantId) return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
   try {
     await prisma.note.deleteMany({ where: { id: noteId, tenantId: session.user.tenantId } });
