@@ -1,5 +1,5 @@
 // src/app/api/tenants/[slug]/downgrade/route.ts
-
+/*
 import { getServerSession } from "next-auth/next";
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
@@ -13,6 +13,51 @@ export async function POST(
 ) {
   const session = await getServerSession(authOptions);
   const tenantSlug = params.slug;
+
+  // 1. Check for authentication and ADMIN role
+  if (session?.user?.role !== "ADMIN") {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+
+  // 2. Security check: Ensure the admin is downgrading their own tenant
+  if (session.user.tenantSlug !== tenantSlug) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  try {
+    // 3. Update the tenant's plan back to FREE
+    await prisma.tenant.update({
+      where: {
+        id: session.user.tenantId,
+      },
+      data: {
+        subscription: "FREE",
+      },
+    });
+
+    return NextResponse.json({ message: "Subscription downgraded to FREE" });
+  } catch (error) {
+    return NextResponse.json(
+      { error: "Failed to downgrade subscription" },
+      { status: 500 }
+    );
+  }
+}
+  */
+
+import { getServerSession } from "next-auth/next";
+import { NextResponse , NextRequest} from "next/server";
+import { PrismaClient } from "@prisma/client";
+import { authOptions } from "../../../auth/[...nextauth]/route";
+
+const prisma = new PrismaClient();
+
+export async function POST(
+  request: NextRequest,
+  context :  { params: { slug: string } }
+) {
+  const session = await getServerSession(authOptions);
+  const tenantSlug = context.params.slug;
 
   // 1. Check for authentication and ADMIN role
   if (session?.user?.role !== "ADMIN") {
