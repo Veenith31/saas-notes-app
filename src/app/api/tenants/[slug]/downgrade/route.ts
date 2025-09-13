@@ -10,7 +10,7 @@ export async function POST(
   { params }: { params: { slug: string } }
 ) {
   const session = await getServerSession(authOptions);
-  const tenantSlug = params.slug;
+  const tenantSlug = context.params.slug;
 
   if (session?.user?.role !== "ADMIN") {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
