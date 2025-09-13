@@ -1,5 +1,3 @@
-// src/app/api/tenants/[slug]/upgrade/route.ts
-
 import { getServerSession } from "next-auth/next";
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
