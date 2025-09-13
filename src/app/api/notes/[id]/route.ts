@@ -1,7 +1,10 @@
+<<<<<<< HEAD
 // src/app/api/notes/[id]/route.ts
 /*
+=======
+>>>>>>> c5a654b9740ecef64faad08855a99b3c5bc1a458
 import { getServerSession } from "next-auth/next";
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import { authOptions } from "../../auth/[...nextauth]/route";
 
@@ -9,11 +12,11 @@ const prisma = new PrismaClient();
 
 
 export async function GET(
-  request: Request,
+  request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   const session = await getServerSession(authOptions);
-  const noteId = params.id;
+  const noteId = context.params.id;
 
   if (!session?.user?.tenantId) {
     return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
@@ -35,7 +38,7 @@ export async function GET(
     }
 
     return NextResponse.json(note);
-  } catch (error) {
+  } catch{
     return NextResponse.json(
       { error: "Failed to fetch note" },
       { status: 500 }
@@ -44,11 +47,11 @@ export async function GET(
 }
 
 export async function PUT(
-  request: Request,
+  request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   const session = await getServerSession(authOptions);
-  const noteId = params.id;
+  const noteId = context.params.id;
 
   if (!session?.user?.tenantId) {
     return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
@@ -84,7 +87,7 @@ export async function PUT(
     }
 
     return NextResponse.json({ message: "Note updated successfully" });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: "Failed to update note" },
       { status: 500 }
@@ -93,18 +96,17 @@ export async function PUT(
 }
 
 export async function DELETE(
-  request: Request,
+  request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   const session = await getServerSession(authOptions);
-  const noteId = params.id;
+  const noteId = context.params.id;
 
   if (!session?.user?.tenantId) {
     return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
   }
 
   try {
-    // Use deleteMany to ensure the note belongs to the correct tenant
     const deleteResult = await prisma.note.deleteMany({
       where: {
         id: noteId,
@@ -120,13 +122,14 @@ export async function DELETE(
     }
 
     return NextResponse.json({ message: "Note deleted successfully" });
-  } catch (error) {
+  } catch  {
     return NextResponse.json(
       { error: "Failed to delete note" },
       { status: 500 }
     );
   }
 }
+<<<<<<< HEAD
   */
 
 // src/app/api/notes/[id]/route.ts
@@ -236,3 +239,5 @@ export async function DELETE(
     );
   }
 }
+=======
+>>>>>>> c5a654b9740ecef64faad08855a99b3c5bc1a458

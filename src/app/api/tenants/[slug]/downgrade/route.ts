@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 // src/app/api/tenants/[slug]/downgrade/route.ts
 /*
+=======
+>>>>>>> c5a654b9740ecef64faad08855a99b3c5bc1a458
 import { getServerSession } from "next-auth/next";
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
@@ -12,20 +15,17 @@ export async function POST(
   { params }: { params: { slug: string } }
 ) {
   const session = await getServerSession(authOptions);
-  const tenantSlug = params.slug;
+  const tenantSlug = context.params.slug;
 
-  // 1. Check for authentication and ADMIN role
   if (session?.user?.role !== "ADMIN") {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
-  // 2. Security check: Ensure the admin is downgrading their own tenant
   if (session.user.tenantSlug !== tenantSlug) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   try {
-    // 3. Update the tenant's plan back to FREE
     await prisma.tenant.update({
       where: {
         id: session.user.tenantId,
@@ -36,13 +36,14 @@ export async function POST(
     });
 
     return NextResponse.json({ message: "Subscription downgraded to FREE" });
-  } catch (error) {
+  } catch{
     return NextResponse.json(
       { error: "Failed to downgrade subscription" },
       { status: 500 }
     );
   }
 }
+<<<<<<< HEAD
   */
 
 import { getServerSession } from "next-auth/next";
@@ -88,3 +89,5 @@ export async function POST(
     );
   }
 }
+=======
+>>>>>>> c5a654b9740ecef64faad08855a99b3c5bc1a458

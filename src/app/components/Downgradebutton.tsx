@@ -22,7 +22,7 @@ export function DowngradeButton({ tenantSlug }: DowngradeButtonProps) {
 
     if (res.ok) {
       alert("Downgrade successful.");
-      router.refresh(); // Refresh the page to update the UI
+      router.refresh(); 
     } else {
       alert("Downgrade failed. Please try again.");
     }

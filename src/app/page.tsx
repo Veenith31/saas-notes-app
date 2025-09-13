@@ -1,4 +1,3 @@
-// src/app/page.tsx
 import { getServerSession } from "next-auth/next";
 import { SignOutButton } from "./components/SignOutButton";
 import { PrismaClient } from "@prisma/client";
@@ -26,7 +25,6 @@ const session = await getServerSession(authOptions);
         <nav className="container flex items-center justify-between p-4 mx-auto">
           <div className="flex items-center space-x-4">
             <h1 className="text-xl font-bold">Notely</h1>
-            {/* Display subscription status */}
             <span className={`px-2 py-1 text-xs font-bold rounded-full ${
               tenant?.subscription === 'PRO' ? 'bg-green-500 text-white' : 'bg-gray-600 text-gray-200'
             }`}>
@@ -35,7 +33,6 @@ const session = await getServerSession(authOptions);
           </div>
           <div className="flex items-center space-x-4">
             <span className="text-sm text-gray-300">{session?.user?.email}</span>
-            {/* Conditionally render the DowngradeButton */}
             {session?.user?.role === 'ADMIN' && tenant?.subscription === 'PRO' && (
               <DowngradeButton tenantSlug={session.user.tenantSlug} />
             )}

@@ -17,7 +17,6 @@ export function NotesList() {
   const [editedContent, setEditedContent] = useState("");
 
   const fetchNotes = useCallback(async () => {
-    // No change to this function
     setIsLoading(true);
     const res = await fetch("/api/notes");
     if (res.ok) {
@@ -32,7 +31,6 @@ export function NotesList() {
   }, [fetchNotes]);
 
   const handleDelete = async (noteId: string) => {
-    // No change to this function
     if (!confirm("Are you sure?")) return;
     const res = await fetch(`/api/notes/${noteId}`, { method: "DELETE" });
     if (res.ok) {
@@ -53,7 +51,6 @@ export function NotesList() {
   };
 
   const handleSaveEdit = async (noteId: string) => {
-    // No change to this function
     const res = await fetch(`/api/notes/${noteId}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },

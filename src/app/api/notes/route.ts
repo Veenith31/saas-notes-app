@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth/next";
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
-import { authOptions } from "../auth/[...nextauth]/route"; // Adjust path if needed
+import { authOptions } from "../auth/[...nextauth]/route"; 
 
 const prisma = new PrismaClient();
 
@@ -22,7 +22,11 @@ export async function GET() {
       },
     });
     return NextResponse.json(notes);
+<<<<<<< HEAD
   } catch {
+=======
+  } catch{
+>>>>>>> c5a654b9740ecef64faad08855a99b3c5bc1a458
     return NextResponse.json(
       { error: "Failed to fetch notes" },
       { status: 500 }
@@ -37,7 +41,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
   }
 
-  // --- Subscription Limit Check ---
   const tenant = await prisma.tenant.findUnique({
     where: { id: session.user.tenantId },
     include: { _count: { select: { notes: true } } },
@@ -46,10 +49,10 @@ export async function POST(request: Request) {
   if (tenant?.subscription === "FREE" && tenant._count.notes >= 3) {
     return NextResponse.json(
       { error: "Note limit reached. Please upgrade to Pro." },
-      { status: 403 } // 403 Forbidden
+      { status: 403 } 
     );
   }
-  // --- End Subscription Check ---
+
 
   try {
     const { title, content } = await request.json();
@@ -71,7 +74,7 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json(newNote, { status: 201 });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: "Failed to create note" },
       { status: 500 }
